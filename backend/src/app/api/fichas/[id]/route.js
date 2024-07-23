@@ -47,16 +47,19 @@ export async function DELETE(request, { params }) {
 export async function PUT(request, { params }) {
   try {
     const codigo = parseInt(params.codigo);
+    if (isNaN(codigo)) {
+      throw new Error(`Invalid codigo: ${params.codigo}`);
+    }
     const data = await request.json();
     const updatedFicha = await prisma.fichas.update({
       where: { codigo },
       data: {
-        inicio_fecha: new Date(data.inicio_fecha), // Asegúrate de que las fechas se envíen correctamente
+        inicio_fecha: new Date(data.inicio_fecha),
         fin_lectiva: new Date(data.fin_lectiva),
         fin_ficha: new Date(data.fin_ficha),
-        programa: { connect: { id_programa: data.programa } }, // Conecta con el ID del programa
-        sede: data.sede, // Enum directamente
-        estado: data.estado, // Enum directamente
+        programa: { connect: { id: data.programa } },
+        sede: data.sede,
+        estado: data.estado,
       },
     });
     return NextResponse.json({ message: "Ficha updated successfully", ficha: updatedFicha }, { status: 200 });
