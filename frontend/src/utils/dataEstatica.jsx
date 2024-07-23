@@ -28,7 +28,7 @@ export const LinksArray = [
   {
     label: "Ambientes",
     icon: <v.iconoUser />,
-    to: "/admin",
+    to: "/ambientes",
   },
   {
     label: "Fichas",

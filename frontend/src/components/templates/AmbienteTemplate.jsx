@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { SidebarCard } from '../../index.js'
 
-export function AdminTemplate() {
+export function AmbienteTemplate() {
   return (
     <Container>
       <h1>Vista de Ambientes </h1>

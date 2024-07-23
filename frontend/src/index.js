@@ -2,7 +2,7 @@ export { default as App, ThemeContext } from './App';
 export { AuthContextProvider, UserAuth } from './context/authContext';
 export {  } from './main';
 export { Home } from './pages/home';
-export { Admin } from './pages/admin';
+export { Ambientes } from './pages/ambientes';
 export { Fichas } from './pages/fichas';
 export { Instructores } from './pages/instructores';
 export { Horarios } from './pages/horarios';

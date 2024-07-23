@@ -1,4 +1,4 @@
-export { Admin } from './admin';
+export { Ambientes } from './ambientes';
 export { Home } from './home';
 export { Fichas } from './fichas';
 export { Instructores } from './instructores';

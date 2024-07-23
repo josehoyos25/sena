@@ -1,5 +1,5 @@
 export { HomeTemplate } from './templates/HomeTemplate';
-export { AdminTemplate } from './templates/AdminTemplate';
+export { AmbienteTemplate } from './templates/AmbienteTemplate';
 export { FichaTemplate } from './templates/FichaTemplate';
 export { InstructorTemplate } from './templates/InstructorTemplate';
 export { HorariosTemplate } from './templates/HorariosTemplate';

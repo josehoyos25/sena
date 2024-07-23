@@ -1,4 +1,4 @@
-export { AdminTemplate } from './AdminTemplate';
+export { AmbienteTemplate } from './AmbienteTemplate';
 export { HomeTemplate } from './HomeTemplate';
 export { FichaTemplate } from './FichaTemplate';
 export { HorariosTemplate } from './HorariosTemplate';

@@ -29,7 +29,7 @@ const Container = styled.button`
     background: ${(props)=>props.$bgcolor};
     padding: 0.6em 1.3em;
     font-weight: 900;
-    font-size: 18px;
+    font-size: 20px;
     border: 3px solid black;
     border-radius: 0.4em;
     box-shadow: 0.1em 0.1em #000;

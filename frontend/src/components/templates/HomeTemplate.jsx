@@ -3,7 +3,7 @@ import styled from "styled-components";
 export function HomeTemplate() {
   return (
     <Container>
-      <h1>Home template desde template </h1>
+      <h1>Home template desde template</h1>
     </Container>
   );
 }
