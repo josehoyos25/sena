@@ -3,24 +3,26 @@ import { NextResponse } from "next/server";
 
 const handleErrors = (error) => {
   return new NextResponse(error.message, { status: 500 });
-};
-
-const handleNotFound = () => {
-  return new NextResponse("Ficha not found", { status: 404 });
-};
+}
 
 export async function GET(request, { params }) {
   try {
     const codigo = parseInt(params.codigo);
+    if (isNaN(codigo) || codigo <= 0) {
+      return NextResponse.json({ error: 'Código de ficha inválido' }, { status: 400 });
+    }
+
     const ficha = await prisma.fichas.findUnique({
       where: { codigo },
       include: {
         Programas: true, // Relación con Programas
       },
     });
+
     if (!ficha) {
-      return handleNotFound();
+      return NextResponse.json({ error: 'Ficha no encontrada' }, { status: 404 });
     }
+
     return NextResponse.json(ficha);
   } catch (error) {
     return handleErrors(error);
@@ -30,6 +32,9 @@ export async function GET(request, { params }) {
 export async function DELETE(request, { params }) {
   try {
     const codigo = parseInt(params.codigo);
+    if (isNaN(codigo)) {
+      return NextResponse.json({ error: "Código invalido" }, { status: 400 });
+    }
     const ficha = await prisma.fichas.delete({
       where: { codigo },
     });
