@@ -47,9 +47,9 @@ model Fichas {
 
 model Horarios {
   id_horario     Int      @id @default(autoincrement())
-  fecha_inicio   DateTime @default(now())
+  fecha_inicio   DateTime
   hora_inicio    String
-  fecha_fin      DateTime @default(now())
+  fecha_fin      DateTime
   hora_fin       String
   dia            Dia
   cantidad_horas Int
@@ -57,7 +57,6 @@ model Horarios {
   ficha          Int
   ambiente       Int
   estado         EstadoHorario @default(aprobado)
-
   Fichas       Fichas      @relation(fields: [ficha], references: [codigo])
   Ambientes    Ambientes   @relation(fields: [ambiente], references: [id_ambiente])
   Vinculacion  Vinculacion @relation(fields: [instructor], references: [id_vinculacion])

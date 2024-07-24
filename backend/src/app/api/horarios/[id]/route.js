@@ -38,7 +38,7 @@ export async function DELETE(request, { params }) {
     const horario = await prisma.horarios.delete({
       where: { id_horario: parseInt(params.id) },
     });
-    return NextResponse.json({ message: "Horario deleted successfully", horario }, { status: 200 });
+    return NextResponse.json({ message: "Horario Eliminado", horario }, { status: 200 });
   } catch (error) {
     return handleErrors(error);
   }
@@ -65,7 +65,7 @@ export async function PUT(request, { params }) {
         ambiente: data.ambiente,
       },
     });
-    return NextResponse.json({ message: "Horario updated successfully", horario: updatedHorario }, { status: 200 });
+    return NextResponse.json({ message: "Horario Actualizado", horario: updatedHorario }, { status: 200 });
   } catch (error) {
     return handleErrors(error);
   }
