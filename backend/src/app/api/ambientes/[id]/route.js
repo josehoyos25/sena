@@ -8,25 +8,40 @@ return new NextResponse(error.message, { status: 500 });
 const handleNotFound = () => {
 return new NextResponse("Ambiente not found", { status: 404 });
 };
-
 export async function GET(request, { params }) {
-try {
-    const id = parseInt(params.id);
-    const ambiente = await prisma.ambientes.findFirst({
-    where: { id },
-    include: {
-        sede: true,
-        estado: true,
-    },
-    });
-    if (!ambiente) {
-    return handleNotFound();
+    try {
+      const id = parseInt(params.id);
+      if (isNaN(id) || id <= 0) {
+        return NextResponse.json({ error: 'ID de horario inválido' }, { status: 400 });
+      }
+  
+      const horario = await prisma.horarios.findUnique({
+        where: { id_horario: parseInt(params.id)},
+        include: {
+          Fichas: true,
+          Ambientes: true,
+          Vinculacion: {
+            include: {
+              instructor: {
+                select: {
+                  id_persona: true,
+                  nombres: true,
+                },
+              },
+            },
+          },
+        },
+      });
+  
+      if (!horario) {
+        return NextResponse.json({ error: 'Horario no encontrado' }, { status: 404 });
+      }
+  
+      return NextResponse.json(horario);
+    } catch (error) {
+      return handleErrors(error);
     }
-    return NextResponse.json(ambiente);
-} catch (error) {
-    return handleErrors(error);
-}
-}
+  }
 
 export async function DELETE(request, { params }) {
 try {
