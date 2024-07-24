@@ -5,9 +5,6 @@ const handleErrors = (error) => {
 return new NextResponse(error.message, { status: 500 });
 };
 
-const handleNotFound = () => {
-return new NextResponse("Ambiente not found", { status: 404 });
-};
 export async function GET(request, { params }) {
     try {
       const id = parseInt(params.id);
@@ -18,18 +15,7 @@ export async function GET(request, { params }) {
       const horario = await prisma.horarios.findUnique({
         where: { id_horario: parseInt(params.id)},
         include: {
-          Fichas: true,
-          Ambientes: true,
-          Vinculacion: {
-            include: {
-              instructor: {
-                select: {
-                  id_persona: true,
-                  nombres: true,
-                },
-              },
-            },
-          },
+
         },
       });
   
@@ -46,7 +32,7 @@ export async function GET(request, { params }) {
 export async function DELETE(request, { params }) {
 try {
     const id = parseInt(params.id);
-    await prisma.ambientes.delete({ where: { id } });
+    await prisma.ambientes.delete({ where: { id_ambiente } });
     return NextResponse.json({ message: "Ambiente deleted successfully" }, { status: 200 });
 } catch (error) {
     return handleErrors(error);
