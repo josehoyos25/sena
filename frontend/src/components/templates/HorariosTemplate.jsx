@@ -1,12 +1,10 @@
 import styled from "styled-components";
-import { SidebarCard } from '../../index.js'
 
 export function HorariosTemplate() {
   return (
     <Container>
       <h1>Vista para los Horarios</h1>
       <>
-       <SidebarCard />
       </>
       
     </Container>

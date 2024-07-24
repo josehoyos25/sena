@@ -1,12 +1,10 @@
 import styled from "styled-components";
-import { SidebarCard } from '../../index.js'
 
 export function FichaTemplate() {
   return (
     <Container>
       <h1>Vista Fichas </h1>
       <>
-       <SidebarCard />
       </>
       
     </Container>

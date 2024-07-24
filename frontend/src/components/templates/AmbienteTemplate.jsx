@@ -1,12 +1,10 @@
 import styled from "styled-components";
-import { SidebarCard } from '../../index.js'
 
 export function AmbienteTemplate() {
   return (
     <Container>
       <h1>Vista de Ambientes </h1>
       <>
-       <SidebarCard />
       </>
       
     </Container>
