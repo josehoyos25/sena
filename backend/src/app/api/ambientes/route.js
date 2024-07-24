@@ -7,12 +7,12 @@ return new NextResponse(error.message, { status: 500 });
 
 export async function GET() {
 try {
-    const fichas = await prisma.fichas.findMany({
+    const ambientes = await prisma.ambientes.findMany({
     include: {
 
     },
     });
-    return NextResponse.json({ datos: fichas }, { status: 200 });
+    return NextResponse.json({ datos: ambientes }, { status: 200 });
 } catch (error) {
     return handleErrors(error);
 }
