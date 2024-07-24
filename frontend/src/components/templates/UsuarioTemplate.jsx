@@ -1,12 +1,11 @@
 import styled from "styled-components";
-import { SidebarCard } from '../../index.js'
 
 export function UsuarioTemplate() {
   return (
     <Container>
       <h1>Vista de Usuarios</h1>
       <>
-       <SidebarCard />
+
       </>
       
     </Container>
