@@ -5,36 +5,15 @@ const handleErrors = (error) => {
   return new NextResponse(error.message, { status: 500 });
 };
 
-export async function GET(request, { params }) {
+export async function GET() {
   try {
-    const id = parseInt(params.id);
-    if (isNaN(id) || id <= 0) {
-      return NextResponse.json({ error: 'ID de horario inválido' }, { status: 400 });
-    }
-
-    const horario = await prisma.horarios.findUnique({
-      where: { id_horario: parseInt(params.id)},
+    const horarios = await prisma.horarios.findMany({
       include: {
-        Fichas: true,
-        Ambientes: true,
-        Vinculacion: {
-          include: {
-            Personas: {
-              select: {
-                id_persona: true,
-                nombres: true,
-              },
-            },
-          },
-        },
+        Fichas: true, // Relación con Fichas
+        Ambientes: true, // Relación con Ambientes
       },
     });
-
-    if (!horario) {
-      return NextResponse.json({ error: 'Horario no encontrado' }, { status: 404 });
-    }
-
-    return NextResponse.json(horario);
+    return NextResponse.json({ datos: horarios }, { status: 200 });
   } catch (error) {
     return handleErrors(error);
   }
