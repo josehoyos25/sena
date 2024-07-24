@@ -15,18 +15,7 @@ export async function GET(request, { params }) {
     const horario = await prisma.horarios.findUnique({
       where: { id_horario: parseInt(params.id)},
       include: {
-        Fichas: true,
-        Ambientes: true,
-        Vinculacion: {
-          include: {
-            instructor: {
-              select: {
-                id_persona: true,
-                nombres: true,
-              },
-            },
-          },
-        },
+
       },
     });
 

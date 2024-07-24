@@ -5,9 +5,15 @@ const handleErrors = (error) => {
   return new NextResponse(error.message, { status: 500 });
 };
 
-export async function GET() {
+export async function GET(request, { params }) {
   try {
-    const horarios = await prisma.horarios.findMany({
+    const id = parseInt(params.id);
+    if (isNaN(id) || id <= 0) {
+      return NextResponse.json({ error: 'ID de horario inválido' }, { status: 400 });
+    }
+
+    const horario = await prisma.horarios.findUnique({
+      where: { id_horario: parseInt(params.id)},
       include: {
         Fichas: true,
         Ambientes: true,
@@ -23,7 +29,12 @@ export async function GET() {
         },
       },
     });
-    return NextResponse.json({ datos: horarios }, { status: 200 });
+
+    if (!horario) {
+      return NextResponse.json({ error: 'Horario no encontrado' }, { status: 404 });
+    }
+
+    return NextResponse.json(horario);
   } catch (error) {
     return handleErrors(error);
   }
