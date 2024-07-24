@@ -26,7 +26,6 @@ export async function POST(request) {
           nombre_amb: data.nombre_amb,
           municipio: data.municipio,
           sede: data.sede,
-          estado: data.estado,
         },
       });
       return new NextResponse(JSON.stringify(ambiente), {

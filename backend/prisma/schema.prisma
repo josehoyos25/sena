@@ -20,8 +20,7 @@ model Ambientes {
   nombre_amb  String
   municipio   Int
   sede        Sede
-  estado      Estado
-
+  estado      Estado @default(activo)
   Municipio   Municipios @relation(fields: [municipio], references: [id_municipio])
   Horarios    Horarios[]
 }
