@@ -7,15 +7,17 @@ const handleErrors = (error) => {
 
 export async function GET(request, { params }) {
   try {
-    const codigo = parseInt(params.codigo);
+    const codigo = parseInt(params.id);
+    console.log("codigo: ", codigo);
+    console.log("parametros", params)
     if (isNaN(codigo) || codigo <= 0) {
       return NextResponse.json({ error: 'Código de ficha inválido' }, { status: 400 });
     }
 
     const ficha = await prisma.fichas.findUnique({
-      where: { codigo },
+      where: { codigo: codigo },
       include: {
-        Programas: true, // Relación con Programas
+
       },
     });
 
@@ -31,14 +33,14 @@ export async function GET(request, { params }) {
 
 export async function DELETE(request, { params }) {
   try {
-    const codigo = parseInt(params.codigo);
+    const codigo = parseInt(params.id);
     if (isNaN(codigo)) {
       return NextResponse.json({ error: "Código invalido" }, { status: 400 });
     }
     const ficha = await prisma.fichas.delete({
       where: { codigo },
     });
-    return NextResponse.json({ message: "Ficha deleted successfully", ficha }, { status: 200 });
+    return NextResponse.json({ message: "Ficha eliminada", ficha }, { status: 200 });
   } catch (error) {
     return handleErrors(error);
   }
@@ -46,9 +48,9 @@ export async function DELETE(request, { params }) {
 
 export async function PUT(request, { params }) {
   try {
-    const codigo = parseInt(params.codigo);
-    if (isNaN(codigo)) {
-      throw new Error(`Invalid codigo: ${params.codigo}`);
+    const id = parseInt(params.id);
+    if (isNaN(id)) {
+      throw new Error(`Codigo Invalido: ${params.codigo}`);
     }
     const data = await request.json();
     const updatedFicha = await prisma.fichas.update({
