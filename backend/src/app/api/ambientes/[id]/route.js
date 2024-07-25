@@ -53,8 +53,8 @@ try {
     data: {
         nombre_amb: data.nombre_amb,
         municipio: data.municipio,
-        sede: { connect: { id_sede: data.sedeId } },
-        estado: { connect: { id_estado: data.estadoId } },
+        sede: data. sede,
+        estado: data.estado,
     },
     });
     return NextResponse.json({ message: "Ambiente Actualizado" }, { status: 200 });
