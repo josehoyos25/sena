@@ -9,42 +9,47 @@ export async function GET(request, { params }) {
     try {
       const id = parseInt(params.id);
       if (isNaN(id) || id <= 0) {
-        return NextResponse.json({ error: 'ID de horario inválido' }, { status: 400 });
+        return NextResponse.json({ error: 'ID de ambiente inválido' }, { status: 400 });
       }
   
-      const horario = await prisma.horarios.findUnique({
-        where: { id_horario: parseInt(params.id)},
+      const ambiente = await prisma.ambientes.findUnique({
+        where: { id_ambiente: parseInt(params.id)},
         include: {
 
         },
       });
   
-      if (!horario) {
-        return NextResponse.json({ error: 'Horario no encontrado' }, { status: 404 });
+      if (!ambiente) {
+        return NextResponse.json({ error: 'Ambiente no encontrado' }, { status: 404 });
       }
   
-      return NextResponse.json(horario);
+      return NextResponse.json(ambiente);
     } catch (error) {
       return handleErrors(error);
     }
   }
 
-export async function DELETE(request, { params }) {
-try {
-    const id = parseInt(params.id);
-    await prisma.ambientes.delete({ where: { id_ambiente } });
-    return NextResponse.json({ message: "Ambiente deleted successfully" }, { status: 200 });
-} catch (error) {
-    return handleErrors(error);
-}
-}
+  export async function DELETE(request, { params }) {
+    try {
+      const id = parseInt(params.id);
+      if (isNaN(id)){
+        return NextResponse.json({ error: 'ID de ambiente inválido' }, { status: 400 });
+      }
+      const ambiente = await prisma.ambientes.delete({
+        where: { id_ambiente: parseInt(params.id) },
+      })
+      return NextResponse.json({ message: "Ambiente eliminado",ambiente }, { status: 200 });
+    } catch (error) {
+      return handleErrors(error);
+    }
+  }
 
 export async function PUT(request, { params }) {
 try {
     const id = parseInt(params.id);
     const data = await request.json();
     const updatedAmbiente = await prisma.ambientes.update({
-    where: { id },
+    where: { id_ambiente: parseInt(params.id) },
     data: {
         nombre_amb: data.nombre_amb,
         municipio: data.municipio,
@@ -52,7 +57,7 @@ try {
         estado: { connect: { id_estado: data.estadoId } },
     },
     });
-    return NextResponse.json({ message: "Ambiente updated successfully" }, { status: 200 });
+    return NextResponse.json({ message: "Ambiente Actualizado" }, { status: 200 });
 } catch (error) {
     return handleErrors(error);
 }
