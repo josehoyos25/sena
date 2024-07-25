@@ -23,7 +23,7 @@ export async function POST(request) {
       const data = await request.json();
       const area = await prisma.areas.create({
         data: {
-          nombre_area: data.nombre_amb,
+          nombre_area: data.nombre_area,
         },
       });
       return new NextResponse(JSON.stringify(area), {
