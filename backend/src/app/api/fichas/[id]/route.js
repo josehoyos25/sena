@@ -53,18 +53,22 @@ export async function PUT(request, { params }) {
       throw new Error(`Codigo Invalido: ${params.codigo}`);
     }
     const data = await request.json();
+    const programa = await prisma.programas.findUnique({
+      where: { id_programa: data.programa },
+    });
+    
     const updatedFicha = await prisma.fichas.update({
-      where: { codigo },
+      where: { codigo: parseInt(params.id) },
       data: {
         inicio_fecha: new Date(data.inicio_fecha),
         fin_lectiva: new Date(data.fin_lectiva),
         fin_ficha: new Date(data.fin_ficha),
-        programa: { connect: { id: data.programa } },
+        programa: { set: data.programa }, // Use the `set` method to update the relation
         sede: data.sede,
         estado: data.estado,
       },
     });
-    return NextResponse.json({ message: "Ficha updated successfully", ficha: updatedFicha }, { status: 200 });
+    return NextResponse.json({ message: "Ficha Actualizada", ficha: updatedFicha }, { status: 200 });
   } catch (error) {
     return handleErrors(error);
   }
